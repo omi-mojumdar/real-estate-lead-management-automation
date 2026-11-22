@@ -1,0 +1,122 @@
+{
+  "name": "Global Error Handler",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.errorTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "70417c2b-80f8-4e5a-a52e-efac88a4ee34",
+      "name": "Error Trigger"
+    },
+    {
+      "parameters": {
+        "content": "# Error Handler",
+        "height": 304,
+        "width": 816,
+        "color": 3
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -112,
+        -112
+      ],
+      "typeVersion": 1,
+      "id": "5e7fdde9-4ea3-4a3f-9bf9-803b0e4fdc6f",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "authentication": "oAuth2",
+        "select": "channel",
+        "channelId": {
+          "__rl": true,
+          "value": "C0CHPUH7A4S",
+          "mode": "list",
+          "cachedResultName": "real-estate-leads"
+        },
+        "text": "=Hello,  An automation workflow has encountered an error.  WORKFLOW DETAILS ------------------------- Workflow Name: {{ $json.workflow.name }}  Failed Node: {{ $json.execution.lastNodeExecuted }}  ERROR DETAILS ------------------------- Error Message: {{ $json.execution.error.message }}  Execution ID: {{ $json.execution.id }}  Execution URL: {{ $json.execution.url }}  ACTION REQUIRED ------------------------- Please open the execution URL, investigate the error and retry the execution if appropriate.  Best regards, AI Automation Monitoring System",
+        "otherOptions": {}
+      },
+      "type": "n8n-nodes-base.slack",
+      "typeVersion": 2.7,
+      "position": [
+        448,
+        0
+      ],
+      "id": "bc2fff8e-7f19-4f6a-ae05-8046a6129d4d",
+      "name": "Slack Alert",
+      "webhookId": "f0073f10-fab4-4e7b-a933-846c4cb051fc",
+      "credentials": {
+        "slackOAuth2Api": {
+          "id": "cT0tDHlygumuGiVd",
+          "name": "Slack account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "tirthomoj@gmail.com",
+        "subject": "n8n Workflow Failure Alert",
+        "message": "=\n<!DOCTYPE html>\n<html>\n<head>\n  <meta charset=\"UTF-8\">\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n  <title>Automation Workflow Error Alert</title>\n</head>\n\n<body style=\"margin:0; padding:0; background-color:#f1f5f9; font-family:Arial, Helvetica, sans-serif; color:#334155;\">\n\n  <table role=\"presentation\" width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\"\n    style=\"background-color:#f1f5f9; padding:35px 12px;\">\n    <tr>\n      <td align=\"center\">\n\n        <table role=\"presentation\" width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\"\n          style=\"max-width:560px; background-color:#ffffff; border-radius:12px; overflow:hidden;\">\n\n          <!-- Header -->\n          <tr>\n            <td style=\"background-color:#0f2744; padding:30px 32px; text-align:center;\">\n              <p style=\"margin:0 0 8px; color:#fca5a5; font-size:12px; font-weight:bold; letter-spacing:2px; text-transform:uppercase;\">\n                Automation Monitoring System\n              </p>\n              <h1 style=\"margin:0; color:#ffffff; font-size:25px; line-height:1.4;\">\n                Workflow Execution Failed\n              </h1>\n              <p style=\"margin:10px 0 0; color:#cbd5e1; font-size:14px; line-height:1.6;\">\n                An error has interrupted an automation workflow.\n              </p>\n            </td>\n          </tr>\n\n          <!-- Main Content -->\n          <tr>\n            <td style=\"padding:32px;\">\n\n              <h2 style=\"margin:0 0 16px; color:#0f2744; font-size:19px;\">\n                Hello Team,\n              </h2>\n\n              <p style=\"margin:0 0 22px; color:#475569; font-size:15px; line-height:1.8;\">\n                An automation workflow has encountered an error and could not complete its execution. Please review the error details below and take the necessary corrective action.\n              </p>\n\n              <!-- Error Status -->\n              <table role=\"presentation\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"margin-bottom:24px;\">\n                <tr>\n                  <td style=\"background-color:#fee2e2; color:#b91c1c; padding:10px 17px; border-radius:20px; font-size:12px; font-weight:bold; letter-spacing:0.6px;\">\n                    &#10005; EXECUTION FAILED\n                  </td>\n                </tr>\n              </table>\n\n              <!-- Workflow Details -->\n              <table role=\"presentation\" width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\"\n                style=\"border:1px solid #e2e8f0; border-radius:8px;\">\n\n                <tr>\n                  <td style=\"padding:17px 18px; background-color:#f8fafc; border-bottom:1px solid #e2e8f0;\">\n                    <h3 style=\"margin:0; color:#0f2744; font-size:16px;\">\n                      Workflow Details\n                    </h3>\n                  </td>\n                </tr>\n\n                <tr>\n                  <td style=\"padding:17px 18px; border-bottom:1px solid #e2e8f0;\">\n                    <p style=\"margin:0 0 7px; color:#64748b; font-size:12px; font-weight:bold; text-transform:uppercase; letter-spacing:0.8px;\">\n                      Workflow Name\n                    </p>\n                    <p style=\"margin:0; color:#0f172a; font-size:14px; font-weight:bold;\">\n                      {{ $json.workflow.name }}\n                    </p>\n                  </td>\n                </tr>\n\n                <tr>\n                  <td style=\"padding:17px 18px;\">\n                    <p style=\"margin:0 0 7px; color:#64748b; font-size:12px; font-weight:bold; text-transform:uppercase; letter-spacing:0.8px;\">\n                      Failed Node\n                    </p>\n                    <p style=\"margin:0; color:#b91c1c; font-size:14px; font-weight:bold; word-break:break-word;\">\n                      {{ $json.execution.lastNodeExecuted }}\n                    </p>\n                  </td>\n                </tr>\n\n              </table>\n\n              <!-- Error Details -->\n              <table role=\"presentation\" width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\"\n                style=\"margin-top:20px; border:1px solid #fecaca; border-radius:8px;\">\n\n                <tr>\n                  <td style=\"padding:17px 18px; background-color:#fef2f2; border-bottom:1px solid #fecaca;\">\n                    <h3 style=\"margin:0; color:#991b1b; font-size:16px;\">\n                      Error Details\n                    </h3>\n                  </td>\n                </tr>\n\n                <tr>\n                  <td style=\"padding:18px;\">\n                    <p style=\"margin:0 0 10px; color:#64748b; font-size:12px; font-weight:bold; text-transform:uppercase; letter-spacing:0.8px;\">\n                      Error Message\n                    </p>\n\n                    <div style=\"padding:15px; background-color:#fff7f7; border:1px solid #fee2e2; border-radius:6px; color:#991b1b; font-size:13px; line-height:1.8; word-break:break-word; white-space:pre-wrap;\">\n                      {{ $json.execution.error.message }}\n                    </div>\n                  </td>\n                </tr>\n\n              </table>\n\n              <!-- Execution Information -->\n              <table role=\"presentation\" width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\"\n                style=\"margin-top:20px; border:1px solid #e2e8f0; border-radius:8px;\">\n\n                <tr>\n                  <td colspan=\"2\" style=\"padding:17px 18px; background-color:#f8fafc; border-bottom:1px solid #e2e8f0;\">\n                    <h3 style=\"margin:0; color:#0f2744; font-size:16px;\">\n                      Execution Information\n                    </h3>\n                  </td>\n                </tr>\n\n                <tr>\n                  <td width=\"35%\" style=\"padding:15px 18px; color:#64748b; font-size:13px; border-bottom:1px solid #e2e8f0;\">\n                    Execution ID\n                  </td>\n                  <td style=\"padding:15px 18px; color:#0f172a; font-size:13px; font-weight:bold; word-break:break-word; border-bottom:1px solid #e2e8f0;\">\n                    {{ $json.execution.id }}\n                  </td>\n                </tr>\n\n                <tr>\n                  <td style=\"padding:15px 18px; color:#64748b; font-size:13px;\">\n                    Execution Status\n                  </td>\n                  <td style=\"padding:15px 18px; color:#b91c1c; font-size:13px; font-weight:bold;\">\n                    Failed\n                  </td>\n                </tr>\n\n              </table>\n\n              <!-- Action Required -->\n              <table role=\"presentation\" width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\"\n                style=\"margin-top:24px; background-color:#fff7ed; border-left:4px solid #f59e0b; border-radius:6px;\">\n\n                <tr>\n                  <td style=\"padding:20px;\">\n                    <h3 style=\"margin:0 0 10px; color:#92400e; font-size:16px;\">\n                      Action Required\n                    </h3>\n                    <p style=\"margin:0; color:#475569; font-size:14px; line-height:1.8;\">\n                      Please open the failed execution, investigate the error, identify and fix the underlying issue, and retry the execution if appropriate.\n                    </p>\n                  </td>\n                </tr>\n\n              </table>\n\n              <!-- Execution URL Button -->\n              <table role=\"presentation\" width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\"\n                style=\"margin-top:24px; background-color:#eff6ff; border:1px solid #dbeafe; border-radius:8px;\">\n\n                <tr>\n                  <td style=\"padding:23px 20px; text-align:center;\">\n                    <h3 style=\"margin:0 0 10px; color:#0f2744; font-size:17px;\">\n                      Investigate Failed Execution\n                    </h3>\n                    <p style=\"margin:0 0 19px; color:#475569; font-size:13px; line-height:1.7;\">\n                      Open the execution details in n8n to inspect the failed node and troubleshoot the issue.\n                    </p>\n\n                    <a href=\"{{ $json.execution.url }}\"\n                       style=\"display:inline-block; padding:14px 28px; background-color:#dc2626; color:#ffffff; text-decoration:none; font-size:14px; font-weight:bold; border-radius:6px;\">\n                      Open Failed Execution\n                    </a>\n\n                  </td>\n                </tr>\n\n              </table>\n\n              <!-- Closing -->\n              <p style=\"margin:27px 0 5px; color:#475569; font-size:14px; line-height:1.7;\">\n                Please investigate this issue promptly to minimize workflow downtime and ensure reliable automation.\n              </p>\n\n              <p style=\"margin:22px 0 5px; color:#475569; font-size:14px;\">\n                Best regards,\n              </p>\n\n              <p style=\"margin:0; color:#0f2744; font-size:15px; font-weight:bold;\">\n                AI Automation Monitoring System\n              </p>\n\n            </td>\n          </tr>\n\n          <!-- Footer -->\n          <tr>\n            <td style=\"background-color:#0f2744; padding:23px 30px; text-align:center;\">\n              <p style=\"margin:0 0 7px; color:#ffffff; font-size:13px; font-weight:bold;\">\n                AI Automation Monitoring System\n              </p>\n              <p style=\"margin:0; color:#94a3b8; font-size:11px; line-height:1.7;\">\n                Automated Workflow Error Notification<br>\n                Internal System Alert\n              </p>\n            </td>\n          </tr>\n\n        </table>\n\n      </td>\n    </tr>\n  </table>\n\n</body>\n</html>\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        224,
+        0
+      ],
+      "id": "9d58cf92-f7cd-4769-9aad-14656fae1659",
+      "name": "Email Alert",
+      "webhookId": "5d510e34-e398-4847-9f5a-b1a0a4c61ace",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "ZiceYi0lXugb6N5c",
+          "name": "Gmail account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Error Trigger": {
+      "main": [
+        [
+          {
+            "node": "Email Alert",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Email Alert": {
+      "main": [
+        [
+          {
+            "node": "Slack Alert",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "0d3c6615-e578-4843-96cf-931282f026e6",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "38dbf462338da62348ca73f67f0537897a9d5f22f004b8829d942a42065abac4"
+  },
+  "nodeGroups": [],
+  "id": "XR8WootSictF2vGC",
+  "tags": []
+}
