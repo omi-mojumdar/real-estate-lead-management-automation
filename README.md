@@ -4,6 +4,7 @@ An n8n-based automation system for US residential real estate teams. It connects
 
 The system uses two Lovable-built web forms as the user-facing interfaces:
 
+- **Video Link:** https://drive.google.com/file/d/18Bflc6r4Y4vWEDnqaIC98IYigZd0WMRs/view?usp=drive_link
 - **Lead submission website:** https://trusty-form-retry.lovable.app/
 - **Meeting outcome website:** https://customer-meeting-momentum.lovable.app/
 
@@ -19,41 +20,8 @@ This project demonstrates that process using five n8n workflows. Google Sheets i
 
 ## Workflow Architecture
 
-```mermaid
-flowchart TD
-    A[Lovable Lead Submission Website] -->|HTTP POST| B[n8n Webhook Trigger]
-    B --> C[Validate Lead Data]
-    C --> D[Check Duplicate in Google Sheets]
-    D --> E[AI Lead Qualification]
-    E --> F[Save / Update Google Sheets CRM]
-    F --> G[Gmail Acknowledgement and Agent Alert]
-    G --> H[Timed Follow-up Sequence]
-
-    I[Gmail Trigger: Customer Reply] --> J[Find Lead in Google Sheets]
-    J --> K[Update Lead Reply Status]
-    K -. current status .-> H
-
-    L[Cal.com Booking Created] --> M[Update Existing CRM Booking]
-    M --> N[Booking Confirmation Email]
-    N --> O[24-hour / 1-hour Reminder Checks]
-
-    P[Cal.com Booking Cancelled] --> Q{Rescheduled?}
-    Q -->|Yes| R[Update Booking / Reschedule Notice]
-    Q -->|No| S[Mark Cancelled / Cancellation Notice]
-
-    O --> T[Meeting Finished: Notify Agent]
-    T --> U[Lovable Meeting Outcome Website]
-    U -->|HTTP POST| V[n8n Webhook Trigger]
-    V --> W[Find Customer and Save Meeting Outcome]
-    W --> X{Outcome Router}
-    X --> Y[Completed]
-    X --> Z[Follow-up Required]
-    X --> AA[No-show]
-    X --> AB[Deal Won]
-    X --> AC[Deal Lost]
-
-    AD[n8n Global Error Trigger] --> AE[Gmail Error Notification]
-```
+<img width="1866" height="810" alt="download" src="https://github.com/user-attachments/assets/f1876c63-d229-4169-b3d0-7e63fbb419bf" />
+<img width="1860" height="794" alt="download (1)" src="https://github.com/user-attachments/assets/81ebb005-3f96-499f-8469-bb5164527625" />
 
 ## Workflows
 
@@ -281,7 +249,7 @@ Only add workflow exports after removing credentials, private identifiers, test 
 ## About
 
 **Omi Mojumdar**  
-AI Automation & Business Systems Specialist  
+Real Estate AI Automation Specialist  
 Focused on AI-assisted lead management and business process automation for US residential real estate teams.
 
 - LinkedIn: https://www.linkedin.com/in/omi-mojumdar-900923388/
